@@ -11,7 +11,6 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 - 🛑 **Hide Sponsored Products**: Remove clutter and distractions from your shopping experience.
 - 🎯 **Highlight Sponsored Products**: Want to identify what's sponsored without hiding it? Just highlight them.
 - 💡 **User-Friendly Interface**: Simple toggle controls in the popup.
-- 💰 **Optional Ad Support**: Displays non-intrusive ads inside the popup (never on shopping pages).
 
 ---
 
@@ -36,7 +35,7 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 ```bash
 sponsorsnap/
 ├── popup.html         # Extension popup UI
-├── popup.js           # Popup behavior (toggle logic & ad display)
+├── popup.js           # Popup behavior (toggle logic)
 ├── content.js         # Injected into shopping sites to hide/highlight sponsored content
 ├── background.js      # Optional: background service worker
 ├── manifest.json      # Extension configuration
