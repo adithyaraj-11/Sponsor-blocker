@@ -1,60 +1,69 @@
 document.addEventListener('DOMContentLoaded', () => {
   const toggleSponsored = document.getElementById('toggleSponsored');
   const toggleHighlight = document.getElementById('toggleHighlight');
+  const pageInfo = document.getElementById('pageInfo');
 
-
+  // Get current tab URL to detect page
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tab = tabs[0];
-    const isFlipkart = tab?.url?.includes('flipkart.com');
+    if (!tab) return;
 
-    if (!isFlipkart) {
+    const url = tab.url || '';
+    let pageName = 'Unknown';
+
+    const isFlipkart = url.includes('flipkart.');
+    const isAmazon = url.includes('amazon.');
+
+    if (isFlipkart) pageName = 'Flipkart';
+    else if (isAmazon) pageName = 'Amazon';
+
+    pageInfo.textContent = `Page: ${pageName}`;
+
+    // Enable toggles only if on Flipkart or Amazon, else disable them
+    if (!isFlipkart && !isAmazon) {
       toggleSponsored.disabled = true;
       toggleHighlight.disabled = true;
-      return;
+    } else {
+      toggleSponsored.disabled = false;
+      toggleHighlight.disabled = false;
+
+      // Load saved states from storage and set toggle states
+      chrome.storage.sync.get(['hideSponsored', 'highlightSponsored'], (result) => {
+        toggleSponsored.checked = !!result.hideSponsored;
+        toggleHighlight.checked = !!result.highlightSponsored;
+      });
     }
+  });
 
-    // Load saved toggle states
-    chrome.storage.sync.get(['hideSponsored', 'highlightSponsored'], (result) => {
-      const hide = !!result.hideSponsored;
-      const highlight = !!result.highlightSponsored;
+  toggleSponsored.addEventListener('change', () => {
+    if (toggleSponsored.disabled) return;  // Just in case
 
-      toggleSponsored.checked = hide;
-      toggleHighlight.checked = highlight;
-
-      // Only enable highlight if hide is off
-      toggleHighlight.disabled = hide;
+    const hide = toggleSponsored.checked;
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (!tabs[0]) return;
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { action: 'toggleSponsored', hide },
+        () => {
+          chrome.storage.sync.set({ hideSponsored: hide });
+        }
+      );
     });
+  });
 
-    toggleSponsored.addEventListener('change', () => {
-      const hide = toggleSponsored.checked;
-      chrome.storage.sync.set({ hideSponsored: hide });
+  toggleHighlight.addEventListener('change', () => {
+    if (toggleHighlight.disabled) return;  // Just in case
 
-      chrome.tabs.sendMessage(tabs[0].id, {
-        action: 'toggleSponsored',
-        hide
-      });
-
-      // If hiding is ON, disable highlight
-      toggleHighlight.disabled = hide;
-
-      if (hide) {
-        // Automatically turn off highlight when hide is ON
-        toggleHighlight.checked = false;
-        chrome.storage.sync.set({ highlightSponsored: false });
-        chrome.tabs.sendMessage(tabs[0].id, {
-          action: 'toggleHighlight',
-          highlight: false
-        });
-      }
-    });
-
-    toggleHighlight.addEventListener('change', () => {
-      const highlight = toggleHighlight.checked;
-      chrome.storage.sync.set({ highlightSponsored: highlight });
-      chrome.tabs.sendMessage(tabs[0].id, {
-        action: 'toggleHighlight',
-        highlight
-      });
+    const highlight = toggleHighlight.checked;
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (!tabs[0]) return;
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { action: 'toggleHighlight', highlight },
+        () => {
+          chrome.storage.sync.set({ highlightSponsored: highlight });
+        }
+      );
     });
   });
 });

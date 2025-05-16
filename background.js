@@ -1,11 +1,16 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url) {
     const url = new URL(tab.url);
-    const isFlipkart = url.hostname.includes('flipkart.com');
+    const hostname = url.hostname;
+
+    const isFlipkart = hostname.includes('flipkart.com');
+    const isAmazon = hostname.includes('amazon.');
+
+    const isSupportedSite = isFlipkart || isAmazon;
 
     chrome.action.setIcon({
       tabId: tabId,
-      path: isFlipkart
+      path: isSupportedSite
         ? {
             "16": "icons/icon16.png",
             "48": "icons/icon48.png",
