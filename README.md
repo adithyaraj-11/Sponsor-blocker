@@ -39,9 +39,8 @@ sponsorsnap/
 ├── content.js         # Injected into shopping sites to hide/highlight sponsored content
 ├── background.js      # Optional: background service worker
 ├── manifest.json      # Extension configuration
-├── icons/             # Extension icons (16x, 48x, 128x)
-└── libs/
-    └── html2canvas.min.js
+└── icons/             # Extension icons (16x, 48x, 128x)
+
 ```
 
 ---
