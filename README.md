@@ -63,18 +63,5 @@ SponsorSnap **does not collect or store** any user data. Ads are displayed only 
 
 ---
 
-## 📜 License
-
-[MIT License](LICENSE)
-
----
-
-## 🙌 Acknowledgments
-
-- Developed using the Chrome Extensions API.
-- Powered by [Adsterra](https://adsterra.com) for optional ad monetization.
-
----
-
 > Feel free to fork, contribute, or suggest improvements.  
 > Happy browsing! 🚀
