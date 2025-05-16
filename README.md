@@ -57,7 +57,7 @@ This extension uses the following permissions:
 
 ## 🛡️ Privacy
 
-SponsorSnap **does not collect or store** any user data. Ads are displayed only within the popup interface, not injected into the webpages you visit.
+SponsorSnap **does not collect or store** any user data.
 
 ---
 
