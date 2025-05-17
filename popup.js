@@ -4,14 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const highlightColorInput = document.getElementById('highlightColor');
   const pageInfo = document.getElementById('pageInfo');
 
-  let currentSite = null; // 'flipkart' or 'amazon'
+  let currentSite = null;
 
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const tab = tabs[0];
     if (!tab) return;
 
     const url = tab.url || '';
-
     if (url.includes('flipkart.')) currentSite = 'flipkart';
     else if (url.includes('amazon.')) currentSite = 'amazon';
 
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleHighlight.disabled = false;
     highlightColorInput.disabled = false;
 
-    // Load stored config specific to site
     chrome.storage.sync.get([
       `${currentSite}_hideSponsored`,
       `${currentSite}_highlightSponsored`,
@@ -52,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { action: 'toggleSponsored', hide },
         () => {
           if (!currentSite) return;
-          const key = `${currentSite}_hideSponsored`;
-          chrome.storage.sync.set({ [key]: hide });
+          chrome.storage.sync.set({ [`${currentSite}_hideSponsored`]: hide });
         }
       );
     });
@@ -71,8 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { action: 'toggleHighlight', highlight },
         () => {
           if (!currentSite) return;
-          const key = `${currentSite}_highlightSponsored`;
-          chrome.storage.sync.set({ [key]: highlight });
+          chrome.storage.sync.set({ [`${currentSite}_highlightSponsored`]: highlight });
         }
       );
     });
@@ -83,10 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const color = highlightColorInput.value;
 
     if (!currentSite) return;
-    const key = `${currentSite}_highlightColor`;
-    chrome.storage.sync.set({ [key]: color });
+    chrome.storage.sync.set({ [`${currentSite}_highlightColor`]: color });
 
-    // Send updated color to content script only if highlight is enabled for this site
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (!tabs[0]) return;
 
@@ -97,4 +91,57 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  // Support Me Button Logic
+  const supportBtn = document.getElementById('supportBtn');
+  const optionsMenu = document.getElementById('optionsMenu');
+  const kofiBtn = document.getElementById('kofiBtn');
+  const upiBtn = document.getElementById('upiBtn');
+  const qrCodeContainer = document.getElementById('qrCodeContainer');
+
+  if (supportBtn && optionsMenu && kofiBtn && upiBtn && qrCodeContainer) {
+    supportBtn.addEventListener('click', () => {
+      if (optionsMenu.style.display === 'none' || optionsMenu.style.display === '') {
+        optionsMenu.style.display = 'block';
+      } else {
+        optionsMenu.style.display = 'none';
+        qrCodeContainer.style.display = 'none';
+      }
+    });
+
+    kofiBtn.addEventListener('click', () => {
+      window.open('https://ko-fi.com/adithya11', '_blank', 'noopener');
+    });
+
+    upiBtn.addEventListener('click', () => {
+      if (qrCodeContainer.style.display === 'none' || qrCodeContainer.style.display === '') {
+        qrCodeContainer.style.display = 'block';
+      } else {
+        qrCodeContainer.style.display = 'none';
+      }
+    });
+  }
+
+  // Modal Image Viewer Logic
+  const qrCodeImage = document.querySelector('#qrCodeContainer img');
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('fullImage');
+  const closeBtn = document.querySelector('.close');
+
+  if (qrCodeImage && modal && modalImg && closeBtn) {
+    qrCodeImage.addEventListener('click', () => {
+      modal.style.display = 'block';
+      modalImg.src = qrCodeImage.src;
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
 });

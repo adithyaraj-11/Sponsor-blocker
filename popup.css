@@ -6,8 +6,16 @@ body {
 }
 
 h1 {
-  font-size: 20px;
-  margin-bottom: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.sponsor {
+  color: #ff3b3f; /* Red or your theme color for 'Sponsor' */
+}
+
+.snap {
+  color: black; /* Blue or your theme color for 'Snap' */
 }
 
 .container {
@@ -57,3 +65,130 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+
+/* Support Me Button */
+#supportBtn {
+  display: inline-block;
+  background:white;
+  color: black;
+  font-weight: 700;
+  padding: 10px 18px;
+  border: 2px solid #ff3b3f; /* Ko-fi brand red */
+  border-radius: 28px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(255, 59, 63, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#supportBtn:hover {
+  background: #e63236;
+  color: white;
+  box-shadow: 0 5px 12px rgba(230, 50, 54, 0.6);
+}
+
+/* Options container */
+#optionsMenu {
+  display: none; 
+  margin: 12px auto 0 auto; 
+  border: 1px solid #ddd;
+  padding: 12px 16px; 
+  border-radius: 12px;
+  user-select: none;
+  width: fit-content; 
+}
+
+
+/* Buttons inside options */
+#optionsMenu button {
+  background: white;
+  border: 2px solid #ff3b3f;
+  color: #ff3b3f;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 14px;
+  margin-right: 12px;
+  min-width: 90px;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(255, 59, 63, 0.25);
+}
+
+#optionsMenu button:hover {
+  background: #ff3b3f;
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 59, 63, 0.5);
+}
+
+/* QR Code container */
+#qrCodeContainer {
+  margin-top: 16px;
+  display: none; /* hidden by default */
+  text-align: center;
+}
+
+#qrCodeContainer img {
+  max-width: 160px;
+  height: auto;
+  border: 2px solid #ff3b3f;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(255, 59, 63, 0.3);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+
+#qrCodeContainer img:hover {
+  transform: scale(1.05);
+}
+
+#qrCodeContainer p {
+  font-size: 13px;
+  color: #b23133;
+  margin-top: 8px;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* On top */
+  padding-top: 60px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* Close button */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+

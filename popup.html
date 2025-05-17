@@ -4,10 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="popup.css" />
+  <style>
+    /* Quick inline styles for Support section */
+    
+  </style>
 </head>
 <body>
-  <h1>SponsorSnap</h1>
-  <p style="margin-top: 10px; font-style: italic;">Snap your sponsored clutter away!</p>
+  <h1>
+    <span class="sponsor">Sponsor</span><span class="snap">Snap</span>
+  </h1>
+  <p style="padding:0px; font-style: italic;">Snap your sponsored clutter away!</p>
 
   <p id="pageInfo" style="margin-top: 10px; font-weight: bold;">Page: Unknown</p>
 
@@ -26,8 +32,34 @@
     </label>
     <span>Highlight Sponsored Products</span>
   </div><br>
-<label for="highlightColor">Highlight Color:</label>
-<input type="color" id="highlightColor" name="highlightColor" value="#ff0000" />
+
+  <label for="highlightColor">Highlight Color:</label>
+  <input type="color" id="highlightColor" name="highlightColor" value="#ff0000" />
+
+  <!-- Support Me Section -->
+  <div style="margin-top: 20px;">
+    <button id="supportBtn" style="padding:8px 16px; font-weight:bold; cursor:pointer;">
+      Support Me ❤️
+    </button>
+
+    <div id="optionsMenu">
+      <button id="kofiBtn">Ko-fi</button>
+      <button id="upiBtn">UPI QR</button>
+
+      <div id="qrCodeContainer">
+        <!-- Replace this src with your actual Google Pay UPI QR image URL -->
+        <img src="icons/upi-qr.png" alt="UPI QR Code" />
+        <p style="font-size: 12px; color: #555; margin-top: 6px;">Click to expand</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal to display full-size image -->
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="fullImage" />
+</div>
+
 
   <script src="popup.js"></script>
 </body>
