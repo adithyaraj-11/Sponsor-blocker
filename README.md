@@ -19,7 +19,7 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 1. Clone or download this repository.
 
    ```bash
-   git clone https://github.com/yourusername/sponsorsnap.git
+   git clone https://github.com/adithyaraj-11/SponsorSnap.git
    ```
 
 2. Open Chrome and navigate to `chrome://extensions/`.
@@ -33,7 +33,7 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 ## 🔧 Project Structure
 
 ```bash
-sponsorsnap/
+SponsorSnap/
 ├── popup.html         # Extension popup UI
 ├── popup.js           # Popup behavior (toggle logic)
 ├── content.js         # Injected into shopping sites to hide/highlight sponsored content
