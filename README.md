@@ -2,7 +2,7 @@
 
 **Snap your sponsored clutter away!**
 
-SponsorSnap is a lightweight Chrome extension that gives you control over sponsored product listings on shopping websites like Flipkart. With simple toggle options, you can **hide** or **highlight** sponsored results — making it easier to browse only the content that matters to you.
+SponsorSnap is a lightweight Chrome extension that gives you control over sponsored product listings on shopping websites like Flipkart and Amazon. With simple toggle options, you can **hide** or **highlight** sponsored results — making it easier to browse only the content that matters to you.
 
 ---
 
