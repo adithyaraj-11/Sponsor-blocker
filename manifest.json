@@ -9,7 +9,12 @@
     "scripting",
     "activeTab"
   ],
-  
+  "host_permissions": [
+    "https://www.flipkart.com/*",
+    "https://www.amazon.com/*",
+    "https://www.amazon.in/*",
+    "https://www.amazon.co.uk/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -22,11 +27,35 @@
     "service_worker": "background.js"
   },
  "content_scripts": [
-  {
-    "matches": ["<all_urls>"],
-    "js": ["content.js"],
-    "run_at": "document_idle"
-  }
-]
+    {
+      "matches": [
+        "https://www.flipkart.com/*",
+        "https://www.amazon.com/*",
+        "https://www.amazon.in/*",
+        "https://www.amazon.co.uk/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "colorpicker.js",
+        "flipkart.js",
+        "amazon.js"
+      ],
+      "matches": [
+        "https://www.flipkart.com/*",
+        "https://www.amazon.com/*",
+        "https://www.amazon.in/*",
+        "https://www.amazon.co.uk/*"
+      ]
+    }
+  ]
+
 
 }
