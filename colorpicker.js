@@ -44,7 +44,7 @@ export function initHighlightColor() {
 
   if (!siteKey) return;
 
-  chrome.storage.sync.get(`${siteKey}_highlightColor`, result => {
+  chrome.storage.local.get(`${siteKey}_highlightColor`, result => {
     const color = result[`${siteKey}_highlightColor`] || '#ffff00';
     document.documentElement.style.setProperty('--highlight-color', color);
   });

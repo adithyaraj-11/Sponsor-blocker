@@ -69,7 +69,7 @@ const PRODUCT_SELECTOR = '[role="listitem"], div[data-cel-widget^="MAIN-VIDEO_SI
 
     // Observe DOM changes and apply settings
     const observer = new MutationObserver(() => {
-      chrome.storage.sync.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
+      chrome.storage.local.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
         if (result[`${siteKey}_hideSponsored`]) hideSponsored();
         else showSponsored();
 
@@ -85,7 +85,7 @@ const PRODUCT_SELECTOR = '[role="listitem"], div[data-cel-widget^="MAIN-VIDEO_SI
     observer.observe(document.body, { childList: true, subtree: true });
 
     // Initial run
-    chrome.storage.sync.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
+    chrome.storage.local.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
       if (result[`${siteKey}_hideSponsored`]) hideSponsored();
       else showSponsored();
 

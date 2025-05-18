@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const toggleSponsored = document.getElementById('toggleSponsored');
   const toggleHighlight = document.getElementById('toggleHighlight');
-  const highlightColorInput = document.getElementById('highlightColor');
   const pageInfo = document.getElementById('pageInfo');
+  const colorBoxes = document.querySelectorAll('.color-box');
 
   let currentSite = null;
 
@@ -19,22 +19,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!currentSite) {
       toggleSponsored.disabled = true;
       toggleHighlight.disabled = true;
-      highlightColorInput.disabled = true;
+      colorBoxes.forEach(box => box.classList.add('disabled'));
       return;
     }
 
     toggleSponsored.disabled = false;
     toggleHighlight.disabled = false;
-    highlightColorInput.disabled = false;
 
-    chrome.storage.sync.get([
+    chrome.storage.local.get([
       `${currentSite}_hideSponsored`,
       `${currentSite}_highlightSponsored`,
       `${currentSite}_highlightColor`
     ], (result) => {
       toggleSponsored.checked = !!result[`${currentSite}_hideSponsored`];
       toggleHighlight.checked = !!result[`${currentSite}_highlightSponsored`];
-      highlightColorInput.value = result[`${currentSite}_highlightColor`] || '#ffff00';
+
+      const storedColor = result[`${currentSite}_highlightColor`] || '#ffff00';
+      colorBoxes.forEach(box => {
+        if (box.dataset.color.toLowerCase() === storedColor.toLowerCase()) {
+          box.classList.add('selected');
+        } else {
+          box.classList.remove('selected');
+        }
+      });
     });
   });
 
@@ -45,14 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (!tabs[0]) return;
 
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { action: 'toggleSponsored', hide },
-        () => {
-          if (!currentSite) return;
-          chrome.storage.sync.set({ [`${currentSite}_hideSponsored`]: hide });
-        }
-      );
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleSponsored', hide }, () => {
+        if (!currentSite) return;
+        chrome.storage.local.set({ [`${currentSite}_hideSponsored`]: hide });
+      });
     });
   });
 
@@ -63,30 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (!tabs[0]) return;
 
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { action: 'toggleHighlight', highlight },
-        () => {
-          if (!currentSite) return;
-          chrome.storage.sync.set({ [`${currentSite}_highlightSponsored`]: highlight });
-        }
-      );
+      chrome.tabs.sendMessage(tabs[0].id, { action: 'toggleHighlight', highlight }, () => {
+        if (!currentSite) return;
+        chrome.storage.local.set({ [`${currentSite}_highlightSponsored`]: highlight });
+      });
     });
   });
 
-  highlightColorInput.addEventListener('input', () => {
-    if (highlightColorInput.disabled) return;
-    const color = highlightColorInput.value;
+  // Color box click handling
+  colorBoxes.forEach(box => {
+    box.addEventListener('click', () => {
+      if (!currentSite) return;
 
-    if (!currentSite) return;
-    chrome.storage.sync.set({ [`${currentSite}_highlightColor`]: color });
+      const selectedColor = box.dataset.color;
 
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (!tabs[0]) return;
+      // Update UI
+      colorBoxes.forEach(b => b.classList.remove('selected'));
+      box.classList.add('selected');
 
-      chrome.storage.sync.get([`${currentSite}_highlightSponsored`], (result) => {
+      // Save selected color
+      chrome.storage.local.set({ [`${currentSite}_highlightColor`]: selectedColor });
+
+      // Update highlight color if active
+      chrome.storage.local.get([`${currentSite}_highlightSponsored`], (result) => {
         if (result[`${currentSite}_highlightSponsored`]) {
-          chrome.tabs.sendMessage(tabs[0].id, { action: 'updateHighlightColor', color });
+          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (!tabs[0]) return;
+            chrome.tabs.sendMessage(tabs[0].id, { action: 'updateHighlightColor', color: selectedColor });
+          });
         }
       });
     });
@@ -114,11 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     upiBtn.addEventListener('click', () => {
-      if (qrCodeContainer.style.display === 'none' || qrCodeContainer.style.display === '') {
-        qrCodeContainer.style.display = 'block';
-      } else {
-        qrCodeContainer.style.display = 'none';
-      }
+      qrCodeContainer.style.display = qrCodeContainer.style.display === 'block' ? 'none' : 'block';
     });
   }
 

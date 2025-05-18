@@ -74,7 +74,7 @@ export function initFlipkart(siteKey = 'flipkart') {
 
   // Watch for new content and apply per-site stored settings
   const observer = new MutationObserver(() => {
-    chrome.storage.sync.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
+    chrome.storage.local.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
       if (result[`${siteKey}_hideSponsored`]) hideSponsored();
       else showSponsored();
 
@@ -90,7 +90,7 @@ export function initFlipkart(siteKey = 'flipkart') {
   observer.observe(document.body, { childList: true, subtree: true });
 
   // Initial run
-  chrome.storage.sync.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
+  chrome.storage.local.get([`${siteKey}_hideSponsored`, `${siteKey}_highlightSponsored`, `${siteKey}_highlightColor`], result => {
     if (result[`${siteKey}_hideSponsored`]) hideSponsored();
     else showSponsored();
 

@@ -192,3 +192,15 @@ input:checked + .slider:before {
   user-select: none;
 }
 
+.color-box {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.color-box.selected {
+  border: 3px solid #000;
+}
+
