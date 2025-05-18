@@ -35,11 +35,11 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 ```bash
 SponsorSnap/
 ├── popup.html         # Extension popup UI
+├── popup.css          # Popup styling
 ├── popup.js           # Popup behavior (toggle logic)
-├── content.js         # Injected into shopping sites to hide/highlight sponsored content
-├── background.js      # Optional: background service worker
 ├── manifest.json      # Extension configuration
-└── icons/             # Extension icons (16x, 48x, 128x)
+├── icons/             # Extension icons (16x, 48x, 128x)
+└── scripts/           # Extension scripts 
 
 ```
 
@@ -62,4 +62,4 @@ SponsorSnap **does not collect or store** any user data.
 ---
 
 > Feel free to fork, contribute, or suggest improvements.  
-> Happy browsing! 🚀
+> Happy shopping! 🚀
