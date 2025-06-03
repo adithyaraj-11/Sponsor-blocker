@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "SponsorSnap",
   "version": "1.0",
-  "description": "SponsorSnap is a handy browser extension designed to help you effortlessly manage sponsored content while shopping at Flipkart",
+  "description": "SponsorSnap is a handy browser extension designed to help you effortlessly manage sponsored content while shopping at Flipkart and Amazon",
   "permissions": [
     "storage",
     "tabs",
