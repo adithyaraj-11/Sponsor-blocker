@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SponsorSnap - block sponsored products on Flipkart and Amazon",
-  "version": "1.01",
+  "version": "1.1",
   "description": "SponsorSnap is a  browser extension designed to help you  manage sponsored content while shopping at Flipkart and Amazon",
   "permissions": [
     "storage",
