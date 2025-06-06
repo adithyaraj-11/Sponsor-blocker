@@ -14,7 +14,18 @@ SponsorSnap is a lightweight Chrome extension that gives you control over sponso
 
 ---
 
-## 📦 Installation
+## 🚀 Get SponsorSnap
+
+Install SponsorSnap from your favorite browser extension store:
+
+- **[Chrome Web Store](https://chromewebstore.google.com/detail/ohkmhdlfgbfhcnlbngoohlmmebnlicln?utm_source=item-share-cb)**
+- **[Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/sponsorsnap/khdimdgndkjcemamhbfidbdmlohfdcgn)**
+
+---
+
+## 📦 Manual Installation
+
+Prefer installing manually or want to modify the extension? Follow these steps:
 
 1. Clone or download this repository.
 
@@ -40,7 +51,6 @@ SponsorSnap/
 ├── manifest.json      # Extension configuration
 ├── icons/             # Extension icons (16x, 48x, 128x)
 └── scripts/           # Extension scripts 
-
 ```
 
 ---
@@ -51,7 +61,6 @@ This extension uses the following permissions:
 
 - `activeTab`, `tabs`: To access current page content.
 - `storage`: To save toggle preferences.
-- `scripting`: To inject content scripts dynamically.
 
 ---
 
